@@ -14,6 +14,7 @@ await app.PreloadDataAsync(); // nice and clean
 
 app.AddRootEndpoints(); 
 app.AddDropZoneEndpoints();
+app.AddJumpScoreEndpoints();
 
 app.Run();
 

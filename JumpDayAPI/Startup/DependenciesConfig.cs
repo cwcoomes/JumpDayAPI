@@ -1,4 +1,7 @@
-﻿using JumpDayAPI.Services;
+﻿using JumpDayAPI.Infrastructure.Weather;
+using JumpDayAPI.Infrastructure.Weather.Providers;
+using JumpDayAPI.Interfaces;
+using JumpDayAPI.Services;
 
 namespace JumpDayAPI.Startup
 {
@@ -23,6 +26,16 @@ namespace JumpDayAPI.Startup
                 var client = httpClientFactory.CreateClient(nameof(DropZoneService));
                 return new DropZoneService(client);
             });
+
+            // Register all weather providers
+            builder.Services.AddSingleton<IWeatherProvider, OpenMeteoProvider>();
+            builder.Services.AddSingleton<IWeatherProvider, NWSProvider>();   
+
+
+            // Aggregator & scoring services
+            builder.Services.AddSingleton<IWeatherAggregator, WeatherAggregator>();
+            builder.Services.AddSingleton<IJumpScoreService, JumpScoreService>();
+
 
         }
     }

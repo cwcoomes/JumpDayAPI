@@ -7,10 +7,10 @@ public class DropZoneService
 {
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _jsonOptions;
-    private List<DropZoneModel> _dropZones = new();
+    private List<DropZone> _dropZones = new();
     private readonly SemaphoreSlim _refreshLock = new(1, 1);
 
-    public IReadOnlyList<DropZoneModel> DropZones => _dropZones.AsReadOnly();
+    public IReadOnlyList<DropZone> DropZones => _dropZones.AsReadOnly();
 
     public DropZoneService(HttpClient httpClient)
     {
@@ -39,7 +39,7 @@ public class DropZoneService
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();
-            _dropZones = JsonSerializer.Deserialize<List<DropZoneModel>>(json, _jsonOptions) ?? new();
+            _dropZones = JsonSerializer.Deserialize<List<DropZone>>(json, _jsonOptions) ?? new();
         }
         finally
         {

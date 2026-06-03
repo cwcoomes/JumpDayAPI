@@ -1,6 +1,6 @@
 ﻿namespace JumpDayAPI.Models;
 
-public class DropZoneModel
+public class DropZone
 {
     public string Id { get; set; }
     public string Latitude { get; set; }
